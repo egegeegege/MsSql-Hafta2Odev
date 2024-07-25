@@ -1,73 +1,73 @@
--- Sanal İsimlendirme
-select ProductName as 'Ürün Adı' from Products
-select ProductName 'Ürün Adı' from Products
-select ProductName as [Ürün Adı] from Products
-select ProductName [Ürün Adı] from Products
+-- Sanal Ä°simlendirme
+select ProductName as 'ÃœrÃ¼n AdÄ±' from Products
+select ProductName 'ÃœrÃ¼n AdÄ±' from Products
+select ProductName as [ÃœrÃ¼n AdÄ±] from Products
+select ProductName [ÃœrÃ¼n AdÄ±] from Products 
 
 -- Aggregate Functionlar
 -- min() , max(), avg(), sum(), count()
--- ürünler tablosunda en yüksek fiyatlı ürünü getir.
--- eski yöntem
+-- Ã¼rÃ¼nler tablosunda en yÃ¼ksek fiyatlÄ± Ã¼rÃ¼nÃ¼ getir.
+-- eski yÃ¶ntem
 select top(1) UnitPrice from Products order by UnitPrice desc
--- max() methodu satılardan en yüksek değerli olan satırı getirir. metinsel ifadelerle çalışır.
-select max(UnitPrice) as 'En yüksek Fiyat' from Products
--- ürünler tablosunda en düşük fiyatlı ürünü getir.
--- min() methodu satılardan en düşük değerli olan satırı getirir.  metinsel ifadelerle çalışır.
-select min(UnitPrice) as 'En düşük Fiyat' from Products
+-- max() methodu satÄ±lardan en yÃ¼ksek deÄŸerli olan satÄ±rÄ± getirir. metinsel ifadelerle Ã§alÄ±ÅŸÄ±r.
+select max(UnitPrice) as 'En yÃ¼ksek Fiyat' from Products
+-- Ã¼rÃ¼nler tablosunda en dÃ¼ÅŸÃ¼k fiyatlÄ± Ã¼rÃ¼nÃ¼ getir.
+-- min() methodu satÄ±lardan en dÃ¼ÅŸÃ¼k deÄŸerli olan satÄ±rÄ± getirir.  metinsel ifadelerle Ã§alÄ±ÅŸÄ±r.
+select min(UnitPrice) as 'En dÃ¼ÅŸÃ¼k Fiyat' from Products
 
--- count() => istenilen tablodaki satır sayısını getirir.  metinsel ifadelerle çalışır.
--- ürünler tablomda kaç ürün vardır
-select count(ProductID) as 'Ürün Sayısı' from Products
--- kaç adet sipariş vardır.
-select count(OrderID) as 'Sipariş Sayısı' from Orders
+-- count() => istenilen tablodaki satÄ±r sayÄ±sÄ±nÄ± getirir.  metinsel ifadelerle Ã§alÄ±ÅŸÄ±r.
+-- Ã¼rÃ¼nler tablomda kaÃ§ Ã¼rÃ¼n vardÄ±r
+select count(ProductID) as 'ÃœrÃ¼n SayÄ±sÄ±' from Products
+-- kaÃ§ adet sipariÅŸ vardÄ±r.
+select count(OrderID) as 'SipariÅŸ SayÄ±sÄ±' from Orders
 
--- NOT : count null olan kayıtları saymaz.
+-- NOT : count null olan kayÄ±tlarÄ± saymaz.
 select count(Region) from Employees
 select * from Employees
-select count(EmployeeID) - count(Region) from Employees -- Null olan sayısı
+select count(EmployeeID) - count(Region) from Employees -- Null olan sayÄ±sÄ±
 
--- kaç adet sipariş vardır.
+-- kaÃ§ adet sipariÅŸ vardÄ±r.
 select count(OrderID) from Orders
 select count(ShipRegion) from Orders
 select * from Orders
 
--- sum() => satıları alta alta kümülatif (yığılmalı) olarak toplar.  metinsel ifadelerle çalışmaz.
-select sum(UnitPrice) as 'Ürünlerin UnitPrice Toplamı' from Products
+-- sum() => satÄ±larÄ± alta alta kÃ¼mÃ¼latif (yÄ±ÄŸÄ±lmalÄ±) olarak toplar.  metinsel ifadelerle Ã§alÄ±ÅŸmaz.
+select sum(UnitPrice) as 'ÃœrÃ¼nlerin UnitPrice ToplamÄ±' from Products
 
-select sum(UnitPrice*Quantity) as 'Tüm Siparişlerin Toplam Fiyatı' from [Order Details]
+select sum(UnitPrice*Quantity) as 'TÃ¼m SipariÅŸlerin Toplam FiyatÄ±' from [Order Details]
 
--- avg() => average satırların ortalamasını alır. metinsel ifadelerle çalışmaz.
+-- avg() => average satÄ±rlarÄ±n ortalamasÄ±nÄ± alÄ±r. metinsel ifadelerle Ã§alÄ±ÅŸmaz.
 select sum(UnitsInStock) / count(UnitsInStock)  from Products
 select avg(UnitsInStock) from Products
 select * from Products
 
 select avg(Quantity) from [Order Details]
 
--- Anne isimli çalışanın aldığı siparişlerin toplam kargo maliyeti nedir.
+-- Anne isimli Ã§alÄ±ÅŸanÄ±n aldÄ±ÄŸÄ± sipariÅŸlerin toplam kargo maliyeti nedir.
 select sum(Freight) from Orders 
 where EmployeeID in (select EmployeeID from Employees where FirstName = 'Anne')
 
--- min,max datetime alanlarla çalışır.
--- en yaşlı çalışan
+-- min,max datetime alanlarla Ã§alÄ±ÅŸÄ±r.
+-- en yaÅŸlÄ± Ã§alÄ±ÅŸan
 select min(BirthDate) from Employees
--- en genç çalışan
+-- en genÃ§ Ã§alÄ±ÅŸan
 select max(BirthDate) from Employees
--- tüm siparişlerin ortalaması
+-- tÃ¼m sipariÅŸlerin ortalamasÄ±
 select avg(UnitPrice*Quantity) from [Order Details]
 
--- çalışanların toplam sipariş sayısını bulunuz
-select EmployeeID,count(OrderID) from Orders -- hata verir çünkü employeeID tekrar eden bir yapı aggregate function ise tekil bir sonuç döndüren bir yapı
+-- Ã§alÄ±ÅŸanlarÄ±n toplam sipariÅŸ sayÄ±sÄ±nÄ± bulunuz
+select EmployeeID,count(OrderID) from Orders -- hata verir Ã§Ã¼nkÃ¼ employeeID tekrar eden bir yapÄ± aggregate function ise tekil bir sonuÃ§ dÃ¶ndÃ¼ren bir yapÄ±
 -- GROUP BY
--- Aggregate functionlar dışında select yapılan sütun yada sütunlar var ise burada gelecek 
--- satırlardan birden fazla olacağından dolayı tekrarlı sütunu gruplamamız gerekir.
-select EmployeeID,count(OrderID) as 'Çalışan bazında toplam sipariş' 
+-- Aggregate functionlar dÄ±ÅŸÄ±nda select yapÄ±lan sÃ¼tun yada sÃ¼tunlar var ise burada gelecek 
+-- satÄ±rlardan birden fazla olacaÄŸÄ±ndan dolayÄ± tekrarlÄ± sÃ¼tunu gruplamamÄ±z gerekir.
+select EmployeeID,count(OrderID) as 'Ã‡alÄ±ÅŸan bazÄ±nda toplam sipariÅŸ' 
 from Orders group by EmployeeID
 
--- Hangi kategoride kaç adet ürün vardır.
+-- Hangi kategoride kaÃ§ adet Ã¼rÃ¼n vardÄ±r.
 
 select CategoryID, count(ProductID) from Products group by CategoryID
 
--- her personelin almış olduğu siparişlerin toplam kargo maliyeti
+-- her personelin almÄ±ÅŸ olduÄŸu sipariÅŸlerin toplam kargo maliyeti
 select EmployeeID, sum(Freight) from Orders group by EmployeeID
 order by sum(Freight)
 
@@ -80,26 +80,26 @@ order by 2
 select EmployeeID, sum(Freight) as 'Kargo Maliyeti' from Orders group by EmployeeID
 order by 'Kargo Maliyeti'
 
--- her bir siparişin maliyetini OrderID ye göre gruplayın.
+-- her bir sipariÅŸin maliyetini OrderID ye gÃ¶re gruplayÄ±n.
 select OrderID, sum(UnitPrice*Quantity) from [Order Details] group by OrderID
 
--- her bir siparite kaç kalem sipariş verilmiştir OrderID ye göre gruplayın.
+-- her bir siparite kaÃ§ kalem sipariÅŸ verilmiÅŸtir OrderID ye gÃ¶re gruplayÄ±n.
 select OrderID, count(OrderID) from [Order Details] group by OrderID
 order by 2
--- sağlaması
+-- saÄŸlamasÄ±
 select * from [Order Details] where OrderID in (11077)
 
--- Çalışanların kaç adet sipariş aldıklarını bulunuz fakat bunlardan 100 üstü sipariş alanları listeyiniz.
+-- Ã‡alÄ±ÅŸanlarÄ±n kaÃ§ adet sipariÅŸ aldÄ±klarÄ±nÄ± bulunuz fakat bunlardan 100 Ã¼stÃ¼ sipariÅŸ alanlarÄ± listeyiniz.
 
 select EmployeeID,count(OrderID) from Orders group by EmployeeID
 where count(OrderID) > 100 -- Hata verir.
 
--- NOT: eğer bir sorguda aggregate function ile ilgili bir koşul durumu var ise bu durumda
--- where kullanılamaz !! bunun yerine having keywordü kullanılır.
+-- NOT: eÄŸer bir sorguda aggregate function ile ilgili bir koÅŸul durumu var ise bu durumda
+-- where kullanÄ±lamaz !! bunun yerine having keywordÃ¼ kullanÄ±lÄ±r.
 select EmployeeID,count(OrderID) from Orders group by EmployeeID
 having count(OrderID) > 100 
 
--- sipariş detaylarında tüm siparişlerin toplam UnitPrice ı 100 den büyük ise göster.
+-- sipariÅŸ detaylarÄ±nda tÃ¼m sipariÅŸlerin toplam UnitPrice Ä± 100 den bÃ¼yÃ¼k ise gÃ¶ster.
 select sum(UnitPrice) from [Order Details] having sum(UnitPrice) >100
 
 
@@ -107,18 +107,18 @@ select sum(UnitPrice) from [Order Details] having sum(UnitPrice) >100
 
 
 
--- Ödev 
+-- Ã–dev 
 
--- Kategori bazında her kategoride olan ürünlerin stoklarını yazınız.
+-- Kategori bazÄ±nda her kategoride olan Ã¼rÃ¼nlerin stoklarÄ±nÄ± yazÄ±nÄ±z.
 SELECT CategoryID, SUM([Order Details].Quantity) FROM Products, [Order Details] WHERE Products.ProductID = [Order Details].ProductID GROUP BY Products.CategoryID;
 select * from [Order Details]
 
--- ürün bazında tekrarlanan sipariş sayısının ortalamasını bulunuz.
+-- Ã¼rÃ¼n bazÄ±nda tekrarlanan sipariÅŸ sayÄ±sÄ±nÄ±n ortalamasÄ±nÄ± bulunuz.
 select ProductID, sum(UnitPrice*Quantity) from [Order Details] group by ProductID
-SELECT ProductID, COUNT(*) AS SiparişSayısı FROM [Order Details] GROUP BY ProductID;
+SELECT ProductID, COUNT(*) AS SipariÅŸSayÄ±sÄ± FROM [Order Details] GROUP BY ProductID;
 
 
--- ürün bazında quantity olarak en fazla sipariş verilen ürünün adını bulunuz.
+-- Ã¼rÃ¼n bazÄ±nda quantity olarak en fazla sipariÅŸ verilen Ã¼rÃ¼nÃ¼n adÄ±nÄ± bulunuz.
 select * from Products 
 where ProductID in (select top(1) ProductID from [Order Details] order by Quantity desc)
 
